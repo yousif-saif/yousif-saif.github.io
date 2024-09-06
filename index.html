@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Car game</title>
+
+</head>
+<body>
+    
+    <button class="invisableBtn"></button>
+    <img class="settingsBtn" src="https://cdn-icons-png.freepik.com/512/14954/14954295.png"></img>
+
+    <h4 class="lives"></h4>
+
+    <button class="exit">Exit game</button>
+
+    <div class="settings">
+        <h4>Chose Car:</h4>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="carFromUser" type="file">
+
+        <br>
+
+        <h4>Chose obstacle:</h4>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="obstacleFromUser" type="file">
+
+        <br>
+
+        <h4>Lives:</h4>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="livesCount" type="number">
+        <br><br>
+        Note: refresh the page to restore to default
+
+    </div>
+
+    
+    <div class="game">
+        <img class="handleMinorWhiteSpaces" src="https://github.com/yousif-saif/Web_car_game/raw/main/road3.png">
+
+
+        <img class="backroundImage" src="https://github.com/yousif-saif/Web_car_game/raw/main/road3.png">
+        <img class="backroundImage" src="https://github.com/yousif-saif/Web_car_game/raw/main/road3.png">
+        
+
+        <img class="water2" src="https://github.com/yousif-saif/Web_car_game/raw/main/water2.png">
+        
+        <img class="car" src="https://github.com/yousif-saif/Web_car_game/raw/main/car1.png">
+
+        <div class="lostDiv">
+            <h1 class="lostText">YOU LOST</h1>
+            <img class="lostGif" src="./lost.gif">
+            <br><br><br><br><br>
+            <button class="restart">Restart</button>
+
+        </div>
+
+        <div class="title">
+            <h1>
+                <span class="char1">D</span>
+                <span class="char2">E</span>
+                <span class="char3">S</span>
+                <span class="char4">E</span>
+                <span class="char5">R</span>
+                <span class="char6">T</span>
+
+                <span class="char7">D</span>
+                <span class="char8">A</span>
+                <span class="char9">S</span>
+                <span class="char10">H</span>
+
+
+            </h1>
+
+        </div>
+
+        <div class="start_menu">
+            <button class="start-btn">Start Game</button>
+            
+        </div>
+
+
+
+        <h6 class="copyright">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Made By Yousif &copy
+            <br>
+            <a href="https://github.com/yousif-saif" target="_blank">https://github.com/yousif-saif</a>
+        </h6>
+        
+    </div>    
+
+
+
+    <script src="./index.js"></script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+.title {
+    color: white;
+    font-family: sans-serif;
+    border-radius: 50%;
+    border-color: black;
+
+}
+
+h1 span {
+    font: 35px Monaco, MonoSpace;
+    height: 200px;
+    position: absolute;
+    width: 20px;
+    transform-origin: bottom center;
+
+}
+
+.char1 { transform: rotate(-60deg); }
+.char2 { transform: rotate(-50deg); }
+.char3 { transform: rotate(-40deg); }
+.char4 { transform: rotate(-30deg); }
+.char5 { transform: rotate(-20deg); }
+.char6 { transform: rotate(-10deg); }
+
+.char7 { transform: rotate(25deg); }
+.char8 { transform: rotate(35deg); }
+.char9 { transform: rotate(45deg); }
+.char10 { transform: rotate(55deg); }
+
+
+.start-btn {
+    background-color: rgb(9, 231, 9);
+    color: white;
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+    box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.3);
+    width: 150px;
+    z-index: 2;
+    margin-top: 50%;
+    cursor: pointer;
+    position: relative;
+
+}
+
+.start-btn:hover {
+    background-color: rgb(56, 252, 56);
+
+}
+
+.game {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+
+}
+
+
+.game img:not(.lostGif) {
+    position: absolute;
+    z-index: -1;
+    filter: blur(4px);
+    transform: translateY(-30%);
+
+
+}
+
+.car { 
+    height: 130px;
+    width: 130px;
+    margin-top: 400px;
+
+}
+
+.water2 {
+    width: 100px;
+    margin-top: -750px;
+    
+}
+
+.copyright, a {
+    color: white;
+    font-family: sans-serif;
+    
+}
+
+.lives {
+    color: white;
+    font-family: sans-serif;
+    font-size: 50px;
+    z-index: 1;
+
+    opacity: 0;    
+
+}
+
+.lostText {
+    color: red;
+    font-family: sans-serif;
+    font-size: 50px;
+    cursor: default;
+
+}
+
+.restart {
+    background-color: rgb(9, 231, 9);
+    color: white;
+    width: 80%;
+    height: 50px;
+    border: none;
+    margin-left: 10%;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+
+}
+
+.restart:hover {
+    background-color: rgb(56, 252, 56);
+    
+}
+
+.lostDiv {
+    margin: 0;
+    position: absolute;
+    opacity: 0;
+
+}
+
+.settings{
+    color: white;
+    font-family: sans-serif;
+    font-size: 20px;
+    padding: 40px;
+    z-index: 2;
+    position: absolute;
+    display: none;
+    margin-top: 5%;
+
+    border: white solid 3px;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.settingsBtn {
+    position: absolute;
+    width: 40px;
+    z-index: 1;    
+
+}
+
+
+.invisableBtn {
+    height: 42px;
+    width: 40px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+    position: absolute;
+
+}
+
+.exit {
+    background-color: red;
+    border-radius: 20%;
+    color: white;
+    border: none;
+    width: 60px;
+    height: 40px;
+    display: none;
+    z-index: 4;
+    cursor: pointer;
+    position: relative;
+
+}
+
+.lostGif {
+    width: 150px;
+    margin-left: 22%;
+    filter: none;
+}
+
+@media only screen and (min-width: 1200px) {
+    .lives, .settingsBtn, .invisableBtn, .exit {
+        margin-left: 15%;
+    }
+}
