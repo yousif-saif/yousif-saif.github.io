@@ -1,15 +1,3 @@
-// function playAudio() {
-//     const audio = new Audio('https://github.com/yousif-saif/Web_car_game/raw/main/click.mp3/');
-//     audio.play()
-// }
-
-
-function getRandomNumber(min, max) {
-    return parseInt(Math.random() * (max - min) + min)
-
-}
-
-
 const lost = new Audio('https://github.com/yousif-saif/Web_car_game/raw/main/lost.mp3/');
 const splash = new Audio("https://github.com/yousif-saif/Web_car_game/raw/main/splash.mp3/")
 const click = new Audio("https://github.com/yousif-saif/Web_car_game/raw/main/click.mp3/")
@@ -50,17 +38,19 @@ let isSettingsOpen = false
 let isLost = false
 let livesCount = 5
 
+function getRandomNumber(min, max) {
+    return parseInt(Math.random() * (max - min) + min)
+
+}
 
 const screenWidth = window.innerWidth
 function setAndHandleMobileTouchs(event) {
     const touchX = event.touches[0].clientX
 
     if (touchX < screenWidth / 2) {
-        console.log("left")
         return "left"
 
     } else {
-        console.log("right")
         return "right"
         
     }
