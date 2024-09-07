@@ -35,6 +35,11 @@ const choices = document.getElementById("choices")
 
 const difficultyText = document.getElementsByClassName("difficultyText")[0]
 
+
+let easyLevelId;
+let mediumLevelId;
+let hardLevelId;
+
 let isSettingsOpen = false
 let fastLevel = 800
 let isLost = false
@@ -252,7 +257,7 @@ function handleStartAndRestart() {
 
     const info = { duration: 1000, fill: "forwards" }
 
-    setTimeout(() => {
+    easyLevelId = setTimeout(() => {
         fastLevel = 600
         difficultyText.textContent = "Easy Level"
         difficultyText.style.color = "rgb(56, 252, 56)"
@@ -261,7 +266,7 @@ function handleStartAndRestart() {
 
     }, 10000)
 
-    setTimeout(() => {
+    mediumLevelId = setTimeout(() => {
         fastLevel = 400
         difficultyText.textContent = "Medium Level"
         difficultyText.style.color = "orange"
@@ -270,7 +275,7 @@ function handleStartAndRestart() {
 
     }, 20000)
 
-    setTimeout(() => {
+    hardLevelId = setTimeout(() => {
         fastLevel = 200
         difficultyText.textContent = "Hard Level"
         difficultyText.style.color = "red"
@@ -401,6 +406,10 @@ window.addEventListener('load', function() {
             startEngine.pause()
             startEngine.currentTime = 0
             
+            this.clearTimeout(easyLevelId)
+            this.clearTimeout(mediumLevelId)
+            this.clearTimeout(hardLevelId)
+
             isLost = true
             exit.style.display = "none"
             lives.textContent = livesCount
