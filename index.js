@@ -2,7 +2,7 @@ const lost = new Audio('https://github.com/yousif-saif/Web_car_game/raw/main/los
 const splash = new Audio("https://github.com/yousif-saif/Web_car_game/raw/main/splash.mp3/")
 const click = new Audio("https://github.com/yousif-saif/Web_car_game/raw/main/click.mp3/")
 const startEngine = new Audio("https://github.com/yousif-saif/Web_car_game/raw/main/startEngine.mp3/")
-
+const woosh = new Audio("https://github.com/yousif-saif/Web_car_game/raw/main/woosh.mp3")
 
 const gameDiv = document.getElementsByClassName("game")[0]
 const backroundImage = document.getElementsByClassName("backroundImage")
@@ -10,7 +10,7 @@ const startGameBtn = document.getElementsByClassName("start-btn")[0]
 const title = document.getElementsByClassName("title")[0]
 const car = document.getElementsByClassName("car")[0]
 const copyright = document.getElementsByClassName("copyright")[0]
-const water2 = document.getElementsByClassName("water2")[0]
+let water2 = document.getElementsByClassName("water2")
 
 let keys = {};
 const setKey = (code) => { keys[code] = true; };
@@ -33,15 +33,24 @@ const exit = document.getElementsByClassName("exit")[0]
 
 const choices = document.getElementById("choices")
 
-let isSettingsOpen = false
+const difficultyText = document.getElementsByClassName("difficultyText")[0]
 
+let isSettingsOpen = false
+let fastLevel = 800
 let isLost = false
 let livesCount = 5
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault()
+
+})
+
 
 function getRandomNumber(min, max) {
     return parseInt(Math.random() * (max - min) + min)
 
 }
+
 
 const screenWidth = window.innerWidth
 function setAndHandleMobileTouchs(event) {
@@ -62,10 +71,11 @@ document.addEventListener("touchstart", event => {
     lastPosistion = setAndHandleMobileTouchs(event)
     setKey(lastPosistion)
 
+
 })
 
 
-document.addEventListener("touchend", () => {
+document.addEventListener("touchend", (event) => {
     unsetKey(lastPosistion)
 
 })
@@ -103,7 +113,9 @@ carFromUser.addEventListener("change", e => {
 })
 
 obstacleFromUser.addEventListener("change", e => {
-    handleImgUpload(e, water2)
+    handleImgUpload(e, water2[0])
+    handleImgUpload(e, water2[1])
+
 })
 
 
@@ -122,7 +134,9 @@ invisableBtn.addEventListener("click", () => {
 
     if (!isSettingsOpen) {
 
-        userLivesCount.value = livesCount
+        if (userLivesCount.value < 1) {
+            userLivesCount.value = 1
+        }
 
         startGameBtn.style.display = "none"
         copyright.style.display = "none"
@@ -180,7 +194,10 @@ function waterPosition() {
 
 function checkLose() {
     const carRect = car.getBoundingClientRect()
-    const waterRect = water2.getBoundingClientRect()
+
+    const waterRect = water2[0].getBoundingClientRect()
+    const waterRect2 = water2[1].getBoundingClientRect()
+
 
     const carX = carRect.x
     const carY = carRect.y
@@ -188,9 +205,13 @@ function checkLose() {
     const waterX = waterRect.x
     const waterY = waterRect.y
 
-    const dist = calcDistance(carX, waterX, carY, waterY)
+    const waterX2 = waterRect2.x
+    const waterY2 = waterRect2.y
 
-    if (dist < 67) {
+    const dist = calcDistance(carX, waterX, carY, waterY)
+    const dist2 = calcDistance(carX, waterX2, carY, waterY2)
+
+    if (dist < 67 || dist2 < 67) {
         return 0 // 0 for lost
 
     } else {
@@ -213,20 +234,59 @@ function startAnimation(num, distanceToMove, duration) {
       );
 }
 
+function fadeDifficultyText() {
+    const info = { duration: 1000, fill: "forwards" }
+
+    difficultyText.animate([{ opacity: 1 }], info)
+
+    setTimeout(() => {
+        difficultyText.animate([{ opacity: 0 }], info)
+
+    }, 1000)
+}
+
 function handleStartAndRestart() {
-    water2.style.display = "block"
+    water2[0].style.display = "block"
+    water2[1].style.display = "block"
     click.play()
+
+    const info = { duration: 1000, fill: "forwards" }
+
+    setTimeout(() => {
+        fastLevel = 600
+        difficultyText.textContent = "Easy Level"
+        difficultyText.style.color = "rgb(56, 252, 56)"
+
+        fadeDifficultyText()
+
+    }, 10000)
+
+    setTimeout(() => {
+        fastLevel = 400
+        difficultyText.textContent = "Medium Level"
+        difficultyText.style.color = "orange"
+
+        fadeDifficultyText()
+
+    }, 20000)
+
+    setTimeout(() => {
+        fastLevel = 200
+        difficultyText.textContent = "Hard Level"
+        difficultyText.style.color = "red"
+
+        fadeDifficultyText()
+
+    }, 30000)
 
     startEngine.play()
     startEngine.addEventListener("ended", () => {
-        console.log("finish")
         startEngine.currentTime = 2
 
         startEngine.play()
 
     })
 
-    const info = { duration: 1000, fill: "forwards" }
     lostDiv.style.display = "none"
 
     settingsBtn.style.display = "none"
@@ -237,7 +297,10 @@ function handleStartAndRestart() {
     backroundImage[0].animate([ { filter: "none" } ], info)
     backroundImage[1].animate([ { filter: "none" } ], info)
     car.animate([ { filter: "none" } ], info)
-    water2.animate([ { filter: "none" } ], info)
+
+    water2[0].animate([ { filter: "none" } ], info)
+    water2[1].animate([ { filter: "none" } ], info)
+
     lives.animate([ { opacity: 1 } ], info)
 
     startGameBtn.animate([ { opacity: "0" } ], info).onfinish = () => { startGameBtn.style.display = "none" }
@@ -251,10 +314,13 @@ function handleStartAndRestart() {
     isLost = false
 }
 
-water2.style.display = "none"
+water2[0].style.display = "none"
+water2[1].style.display = "none"
+
 
 startGameBtn.addEventListener("click", handleStartAndRestart)
 restartBtn.addEventListener("click", () => {
+    fastLevel = 800
     click.play()
     const info = { duration: 1000, fill: "forwards" }
 
@@ -275,7 +341,9 @@ restartBtn.addEventListener("click", () => {
     lost.pause()
     lost.currentTime = 0
 
-    water2.style.display = "none"
+    water2[0].style.display = "none"
+    water2[1].style.display = "none"
+
 
 })
 
@@ -294,17 +362,6 @@ window.addEventListener('load', function() {
     }
 
 
-    function waterAnimation(translateYValue, duration) {
-        return water2.animate([
-            { transform: `translateY(${translateYValue})` }
-        ], {
-            duration: duration * 1000,
-            easing: 'linear',
-            fill: 'forwards'
-
-        })
-    }
-
     window.addEventListener("keydown", e => setKey(e.code));
     window.addEventListener("keyup", e => unsetKey(e.code));
 
@@ -317,9 +374,11 @@ window.addEventListener('load', function() {
     const update = () => {
         if ((isKeyPressed("KeyA") || isKeyPressed("left")) && marginLeftVal >= -190) {
             marginLeftVal -= carSpeed
+            woosh.play()
 
         } else if ((isKeyPressed("KeyD") || isKeyPressed("right")) && marginLeftVal <= 190) {
             marginLeftVal += carSpeed
+            woosh.play()
 
         }
 
@@ -350,7 +409,10 @@ window.addEventListener('load', function() {
             backroundImage[0].animate( [{ filter: "blur(4px)" }], info )
             backroundImage[1].animate( [{ filter: "blur(4px)" }], info )
             car.animate( [{ filter: "blur(4px)" }], info )
-            water2.animate( [{ filter: "blur(4px)" }], info )
+
+            water2[0].animate( [{ filter: "blur(4px)" }], info )
+            water2[1].animate( [{ filter: "blur(4px)" }], info )
+
             lives.animate([ { opacity: 0 } ], info)
 
             lostDiv.style.display = "block"
@@ -361,6 +423,17 @@ window.addEventListener('load', function() {
         this.setTimeout(update, 0)
     }
 
+    function waterAnimation(water, translateYValue, duration) {
+        return water.animate([
+            { transform: `translateY(${translateYValue})` }
+
+        ], {
+            duration: duration * 1000,
+            easing: 'linear',
+            fill: 'forwards'
+
+        })
+    }
 
     function loop(first, second) {        
         startAnimation(second, "-71%", 0)
@@ -373,17 +446,23 @@ window.addEventListener('load', function() {
         startAnimation(second, "29%", 4.4)
         .onfinish = () => { loop(second, first) }
 
-        if (!isLost) {
-            waterAnimation("1200%", 3.2)
-            .onfinish = () => {
-                waterAnimation("-630%", 0)
 
-                const moveWaterBy = waterPosition()
-                water2.style.marginLeft = moveWaterBy
+        waterAnimation(water2[0], "1200%", 3.2)
+        .onfinish = () => {
+            waterAnimation(water2[0], "-630%", 0)
+            water2[0].style.marginLeft = waterPosition()
+
+        }
+
+        setTimeout(() => {
+            waterAnimation(water2[1], "1200%", 3.2)
+            .onfinish = () => {
+                waterAnimation(water2[1], "-630%", 0)
+                water2[1].style.marginLeft = waterPosition()
 
             }
-        
-        }
+
+        }, fastLevel)
 
     }
 
