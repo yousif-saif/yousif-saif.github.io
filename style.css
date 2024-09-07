@@ -193,6 +193,14 @@ h1 span {
     filter: none;
 }
 
+.difficultyText {
+    position: absolute;
+    font-size: 50px;
+    z-index: -1;
+    font-family: sans-serif;
+    opacity: 0;
+
+}
 
 @media only screen and (min-width: 1200px) {
     .lives, .settingsBtn, .invisableBtn, .exit {
